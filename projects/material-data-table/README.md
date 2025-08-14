@@ -139,6 +139,41 @@ Customize the table's features with this optional input.
 | `showActions`    | `boolean` | Show or hide the row actions column. Defaults to `false`.                                               |
 | `actionOptions`  | `object`  | Provide an array of `actions` to display in the menu for each row.                                      |
 
+The `tableOptions` input allows you to customize features like filtering, sorting, and pagination. You only need to provide the options you wish to override from the defaults. Your provided options object will be merged with the default configuration, with your values taking precedence.
+
+For example, if you want to disable the filter and change the pagination options, you would pass an object like this to the component:
+
+```typescript
+const myOptions: ITableOptions<User> = {
+  showFilter: false,
+  paginatorOptions: {
+    pageSizeOptions: [10, 20, 50]
+  }
+};
+```
+
+#### Default Options
+
+The component has a set of default options. If the `tableOptions` input is not provided, or if specific properties within it are omitted, these defaults will be used.
+
+```typescript
+const defaultTableOptions = {
+  showFilter: true,
+  filterOptions: {
+    label: 'Filter',
+  },
+  showPaginator: true,
+  paginatorOptions: {
+    pageSizeOptions: [5, 10, 25, 100],
+  },
+  showSorter: true,
+  sorterOptions: {
+    defaultSortDirection: 'asc',
+  },
+  showActions: false,
+};
+```
+
 ---
 
 ## Advanced Examples
