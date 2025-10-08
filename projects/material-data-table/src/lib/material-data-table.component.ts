@@ -66,6 +66,9 @@ export class MaterialDataTableComponent<T> implements AfterViewInit, OnChanges, 
     showSorter: true,
     sorterOptions: { defaultSortDirection: 'asc' },
     showActions: false,
+    actionOptions: {},
+    showTableActions: false,
+    tableActionOptions: {},
   };
 
   dataSource: MatTableDataSource<T> = new MatTableDataSource<T>([]);
@@ -102,6 +105,7 @@ export class MaterialDataTableComponent<T> implements AfterViewInit, OnChanges, 
       paginatorOptions: { ...defaults.paginatorOptions, ...user.paginatorOptions },
       sorterOptions: { ...defaults.sorterOptions, ...user.sorterOptions },
       actionOptions: { ...defaults.actionOptions, ...user.actionOptions },
+      tableActionOptions: { ...defaults.tableActionOptions, ...user.tableActionOptions },
     };
   }
 
@@ -152,7 +156,7 @@ export class MaterialDataTableComponent<T> implements AfterViewInit, OnChanges, 
 
   generateDisplayColumns(): string[] {
     const displayColumns = this.columnMappings.map(col => col.key as string);
-    if (this.mergedOptions.showActions) {
+    if (this.mergedOptions.showActions || this.mergedOptions.showTableActions) {
       displayColumns.push('actions');
     }
     return displayColumns;

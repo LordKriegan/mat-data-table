@@ -1,0 +1,6 @@
+<button mat-flat-button (click)="refresh()" color="primary">Refresh</button>
+<mat-data-table
+  [tableData]="books$ | async"
+  [columnMappings]="columnMappings"
+  [tableOptions]="tableOptions"
+></mat-data-table>
