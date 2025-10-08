@@ -45,6 +45,13 @@ export type IColumnMap<T> = {
      */
     component?: Type<IMaterialTableCell<T[K]>>;
     /**
+     * An object containing input properties to pass to the `component`.
+     * The keys of this object should match the input property names of your component.
+     * The values will be passed directly to the component.
+     * Note: The `data` input is handled automatically and should not be included here.
+     */
+    componentInputs?: { [key: string]: string | number | boolean | object | null | undefined };
+    /**
      * A function to transform the cell data before it's displayed.
      * This is useful for formatting dates, numbers, etc.
      * This is ignored if a `component` is provided.
@@ -52,6 +59,11 @@ export type IColumnMap<T> = {
      * @returns The transformed string to display.
      */
     transformer?: (data: T[K]) => string;
+    /**
+     * The text to display in the tooltip for the cell.
+     * Can be a static string or a function that returns a string based on the cell data.
+     */
+    tooltip?: string | ((data: T[K]) => string);
   }
 }[Extract<keyof T, string>];
 
@@ -144,9 +156,42 @@ export interface ITableOptions<T> {
    * Configuration for the row actions menu.
    */
   actionOptions?: {
+
+    /**
+     * An object of CSS styles to apply to the action button.
+     * @example { 'color': 'primary', 'font-size': '20px' }
+     */
+    buttonStyles?: { [key: string]: string | number };
     /** An array of actions to display in the menu for each row. */
     actions?: IMenuAction<T>[];
   }
+  /**
+   * Optional custom component to display when the table has no data.
+   * This component will be rendered in place of the table body when `dataSource.data` is empty.
+   */
+  noTableRow?: Type<unknown>;
+  /**
+   * Whether to display a global actions menu for the table.
+   * @default false
+   */
+  showTableActions?: boolean;
+  /**
+   * Configuration for the global table actions menu.
+   */
+  tableActionOptions?: {
+    /**
+     * An object of CSS styles to apply to the table action button.
+     * @example { 'color': 'primary', 'font-size': '20px' }
+     */
+    buttonStyles?: { [key: string]: string | number };
+    /** An array of actions to display in the menu for the table. */
+    actions?: IMenuAction<void>[];
+  },
+  /**
+   * An object of CSS styles to apply to the entire table element.
+   * @example { 'width': '100%', 'box-shadow': '0 2px 4px rgba(0,0,0,0.1)' }
+   */
+  tableStyles?: { [key: string]: string | number };
 }
 
 /**

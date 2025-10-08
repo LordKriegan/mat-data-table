@@ -1,21 +1,23 @@
+import { NgComponentOutlet, NgStyle } from '@angular/common';
 import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Observable, Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatDividerModule } from '@angular/material/divider';
 import { IColumnMap, ITableOptions } from './material-data-table.interfaces';
 
 @Component({
   selector: 'mat-data-table',
   imports: [
-    CommonModule,
+    NgStyle,
+    NgComponentOutlet,
     MatFormFieldModule,
     MatInputModule,
     MatTableModule,
@@ -24,7 +26,8 @@ import { IColumnMap, ITableOptions } from './material-data-table.interfaces';
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
-    MatDividerModule
+    MatDividerModule,
+    MatTooltipModule
   ],
   standalone: true,
   templateUrl: './material-data-table.component.html',
@@ -154,6 +157,32 @@ export class MaterialDataTableComponent<T> implements AfterViewInit, OnChanges, 
     }
     return displayColumns;
   }
+
+    /**
+   * Returns the tooltip text for a cell.
+   * It handles both static string tooltips and function-based tooltips.
+   * @param column The column definition, which may contain the tooltip.
+   * @param row The data for the current row.
+   * @returns The tooltip string, or an empty string if no tooltip is defined.
+   */
+    public getTooltipText(column: IColumnMap<T>, row: T): string {
+      if (column.tooltip === undefined) {
+        return '';
+      }
+  
+      if (typeof column.tooltip === 'function') {
+        return (column.tooltip)(row[column.key as never]);
+      }
+  
+      return column.tooltip;
+    }
+  
+    public getComponentInputs(column: IColumnMap<T>, row: T): { [key: string]: unknown } {
+      return {
+        data: row[column.key as keyof T],
+        ...column.componentInputs
+      };
+    }
 
   ngOnDestroy(): void {
     // Clean up the subscription to prevent memory leaks when the component is destroyed.

@@ -1,5 +1,6 @@
 table {
   width: 100%;
+  table-layout: fixed;
 }
 
 .mat-mdc-form-field {
@@ -7,6 +8,22 @@ table {
   width: 100%;
 }
 
-td, th {
-  width: 25%;
+.action-column {
+    /* 1. Ensure content doesn't wrap to maintain minimum width */
+    white-space: nowrap;
+
+    /* 2. Push content to the right edge of the cell */
+    text-align: right;
+
+    /* 3. Hint to the browser to make this column very narrow */
+    width: 10%;
+
+    /* 4. Optional: Set a hard minimum to ensure space for icons */
+    min-width: 80px; 
+}
+
+/* Specific styles for the action elements themselves (e.g., icons) */
+.action-column button{
+    /* You might want a little space between the actions */
+    margin-left: 8px;
 }
