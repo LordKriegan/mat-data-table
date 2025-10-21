@@ -25,9 +25,9 @@ This library requires you to have the following packages installed in your proje
 
 ```json
 {
-  "@angular/common": "^18.0.0 || ^19.0.0",
-  "@angular/core": "^18.0.0 || ^19.0.0",
-  "@angular/material": "^18.0.0 || ^19.0.0"
+  "@angular/common": "^19.0.0 || ^20.0.0",
+  "@angular/core": "^19.0.0 || ^20.0.0",
+  "@angular/material": "^19.0.0 || ^20.0.0"
 }
 ```
 

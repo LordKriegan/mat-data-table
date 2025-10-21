@@ -1,7 +1,7 @@
 {
   "name": "@lordkriegan/mat-data-table",
   "author": "Qamar Abbas Stationwala",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "keywords": ["angular", "mat", "material", "data", "table", "dynamic", "dynamically", "generated", "datatable"],
   "license": "MIT",
   "repository": "https://github.com/LordKriegan/mat-data-table.git",
